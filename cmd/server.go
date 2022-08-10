@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"github.com/cameronbroe/music.cameronbroe.com/internal"
 	"github.com/gin-gonic/gin"
 )
 
@@ -13,10 +13,7 @@ func buildApp() *App {
 	app := new(App)
 
 	app.server = gin.Default()
-
-	app.server.GET("/list", func(c *gin.Context) {
-		fmt.Println("Got a request to /list")
-	})
+	internal.InstallRoutes(app.server)
 
 	return app
 }
