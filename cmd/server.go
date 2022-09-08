@@ -9,7 +9,7 @@ import (
 
 type App struct {
 	server *gin.Engine
-	db *internal.Database
+	db     *internal.Database
 }
 
 func buildApp() *App {

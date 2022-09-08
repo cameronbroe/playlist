@@ -9,23 +9,23 @@ import (
 )
 
 type Database struct {
-  db *sql.DB
+	db *sql.DB
 }
 
 func InitializeDatabase() *Database {
-  dbPath := os.Getenv("DATABASE_PATH")
-  if dbPath == "" {
-    dbPath = "./database.db"
-  }
-  db, err := sql.Open("sqlite", dbPath)
-  if err != nil {
-    log.Fatal(err)
-    return nil
-  }
+	dbPath := os.Getenv("DATABASE_PATH")
+	if dbPath == "" {
+		dbPath = "./database.db"
+	}
+	db, err := sql.Open("sqlite", dbPath)
+	if err != nil {
+		log.Fatal(err)
+		return nil
+	}
 
-  return &Database{
-    db,
-  }
+	return &Database{
+		db,
+	}
 }
 
 func (db *Database) EnsureDatabaseExists() error {
@@ -55,7 +55,7 @@ func (db *Database) GetListOfPlayedSongs() ([]PlayedSong, error) {
 		id, song_name, artist_name, album_name, apple_url, spotify_url, youtube_url
 	FROM played_songs;
 	`
-	
+
 	rows, err := db.db.Query(playedSongsQuery)
 	if err != nil {
 		log.Fatalf("error querying played songs: %s\n", err)
