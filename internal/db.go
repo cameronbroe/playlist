@@ -2,6 +2,7 @@ package internal
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 	"os"
 
@@ -50,26 +51,51 @@ func (db *Database) EnsureDatabaseExists() error {
 }
 
 func (db *Database) GetListOfPlayedSongs() ([]PlayedSong, error) {
-	playedSongsQuery := `
-	SELECT 
-		id, song_name, artist_name, album_name, apple_url, spotify_url, youtube_url
-	FROM played_songs;
-	`
+	playedSongsQuery := `SELECT * FROM played_songs;`
 
 	rows, err := db.db.Query(playedSongsQuery)
+	log.Printf("got rows: %+v\n", rows)
 	if err != nil {
 		log.Fatalf("error querying played songs: %s\n", err)
 		return []PlayedSong{}, err
 	}
+	log.Println("no error running query")
+	log.Printf("%+v\n", rows.Err())
 
 	playedSongs := []PlayedSong{}
 	for rows.Next() {
+		log.Println("foo")
 		playedSong := new(PlayedSong)
-		err := rows.Scan(playedSong)
+		err := rows.Scan(
+			&playedSong.Id, 
+			&playedSong.Title, 
+			&playedSong.Artist, 
+			&playedSong.Album,
+			&playedSong.AppleUrl, 
+			&playedSong.SpotifyUrl, 
+			&playedSong.YouTubeUrl,
+		)
 		if err != nil {
 			return []PlayedSong{}, err
 		}
+		log.Printf("song in list: %+v\n", playedSong)
 		playedSongs = append(playedSongs, *playedSong)
 	}
 	return playedSongs, nil
+}
+
+func (db *Database) SubmitPlayedSong(song PlayedSong) error {
+	insertPlayedSongQuery := fmt.Sprintf(`
+	INSERT INTO played_songs (
+		song_name, artist_name, album_name, apple_url, spotify_url, youtube_url
+	) VALUES (
+		"%s", "%s", "%s", "%s", "%s", "%s"
+	)`, song.Title, song.Artist, song.Album, song.AppleUrl, song.SpotifyUrl, song.YouTubeUrl)
+
+	_, err := db.db.Exec(insertPlayedSongQuery)
+	if err != nil {
+		return err
+	}
+	
+	return nil
 }

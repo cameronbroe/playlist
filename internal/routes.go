@@ -6,4 +6,5 @@ import (
 
 func InstallRoutes(engine *gin.Engine, db *Database) {
 	engine.GET("/list", NewListHandler(db))
+	engine.POST("/submit", NewSubmitHandler(db))
 }
