@@ -12,4 +12,7 @@ RUN go build -o build/server cmd/server.go
 
 FROM scratch
 COPY --from=build /music.cameronbroe.com/build/server /server
+
+EXPOSE 8080
+
 CMD ["/server"]
