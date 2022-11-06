@@ -8,12 +8,15 @@ import (
 )
 
 type App struct {
-	server *gin.Engine
-	db     *internal.Database
+	server    *gin.Engine
+	db        *internal.Database
+	decorator *internal.SongDecorator
 }
 
 func buildApp() *App {
 	app := new(App)
+
+	app.decorator = new(internal.SongDecorator)
 
 	app.db = internal.InitializeDatabase()
 	err := app.db.EnsureDatabaseExists()
@@ -23,7 +26,7 @@ func buildApp() *App {
 	log.Printf("database existence has been ensured")
 
 	app.server = gin.Default()
-	internal.InstallRoutes(app.server, app.db)
+	internal.InstallRoutes(app.server, app.db, app.decorator)
 
 	return app
 }

@@ -16,7 +16,7 @@ type Database struct {
 func InitializeDatabase() *Database {
 	dbPath := os.Getenv("DATABASE_PATH")
 	if dbPath == "" {
-		dbPath = "./database.db"
+		dbPath = "./database.sqlite"
 	}
 	db, err := sql.Open("sqlite", dbPath)
 	if err != nil {
