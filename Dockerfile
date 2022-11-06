@@ -10,7 +10,8 @@ RUN go mod download
 COPY . .
 RUN go build -o build/server cmd/server.go
 
-FROM scratch
+FROM debian:11-slim
+RUN apt-get update && apt-get install ca-certificates
 COPY --from=build /music.cameronbroe.com/build/server /server
 
 EXPOSE 8080
