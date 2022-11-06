@@ -40,7 +40,7 @@ func searchItunes(song *PlayedSong) (*itunesResult, error) {
 	decoder := json.NewDecoder(resp.Body)
 	decoder.Decode(&results)
 
-	for _, result := range(results.Results) {
+	for _, result := range results.Results {
 		artistMatches := normalize(result.ArtistName) == normalize(song.Artist)
 		albumMatches := normalize(result.AlbumName) == normalize(song.Album)
 		titleMatches := normalize(result.TrackName) == normalize(song.Title)
@@ -52,6 +52,35 @@ func searchItunes(song *PlayedSong) (*itunesResult, error) {
 	return nil, errors.New("could not find track on iTunes")
 }
 
+type odesliResult struct {
+	OdesliUrl string `json:"pageUrl"`
+	Platforms struct {
+		Spotify struct {
+			Url string `json:"url"`
+		} `json:"spotify"`
+
+		YouTube struct {
+			Url string `json:"url"`
+		} `json:"youtubeMusic"`
+	} `json:"linksByPlatform"`
+}
+
+func searchOdesli(song *PlayedSong) (*odesliResult, error) {
+	escapedUrl := url.QueryEscape(song.AppleUrl)
+	log.Println(escapedUrl)
+	odesliUrl := fmt.Sprintf("https://api.song.link/v1-alpha.1/links?url=%s", escapedUrl)
+	resp, err := http.Get(odesliUrl)
+	if err != nil {
+		log.Printf("error getting data from Odesli: %s\n", err)
+		return nil, err
+	}
+
+	var result odesliResult
+	decoder := json.NewDecoder(resp.Body)
+	decoder.Decode(&result)
+	return &result, nil
+}
+
 func (sd *SongDecorator) DecoratePlayedSong(song *PlayedSong) {
 	itunesResult, err := searchItunes(song)
 	if err != nil {
@@ -60,4 +89,13 @@ func (sd *SongDecorator) DecoratePlayedSong(song *PlayedSong) {
 	}
 
 	song.AppleUrl = itunesResult.TrackUrl
+
+	odesliResult, err := searchOdesli(song)
+	if err != nil {
+		fmt.Printf("could not find song on Odesli: %s\n", err)
+		return
+	}
+
+	song.SpotifyUrl = odesliResult.Platforms.Spotify.Url
+	song.YouTubeUrl = odesliResult.Platforms.YouTube.Url
 }
