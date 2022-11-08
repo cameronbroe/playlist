@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"github.com/cameronbroe/music.cameronbroe.com/internal"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -26,6 +27,7 @@ func buildApp() *App {
 	log.Printf("database existence has been ensured")
 
 	app.server = gin.Default()
+	app.server.Use(cors.Default())
 	internal.InstallRoutes(app.server, app.db, app.decorator)
 
 	return app

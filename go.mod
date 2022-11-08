@@ -3,6 +3,7 @@ module github.com/cameronbroe/music.cameronbroe.com
 go 1.18
 
 require (
+	github.com/gin-contrib/cors v1.4.0 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/gin-gonic/gin v1.8.1 // indirect
 	github.com/glebarez/go-sqlite v1.17.3 // indirect
