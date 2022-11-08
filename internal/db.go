@@ -38,8 +38,7 @@ func (db *Database) EnsureDatabaseExists() error {
 		album_name TEXT,
 		apple_url TEXT,
 		spotify_url TEXT,
-		youtube_url TEXT,
-		album_art_url TEXT
+		youtube_url TEXT
 	);
 	`
 
@@ -75,7 +74,6 @@ func (db *Database) GetListOfPlayedSongs() ([]PlayedSong, error) {
 			&playedSong.AppleUrl, 
 			&playedSong.SpotifyUrl, 
 			&playedSong.YouTubeUrl,
-			&playedSong.AlbumArtUrl,
 		)
 		if err != nil {
 			return []PlayedSong{}, err
@@ -89,10 +87,10 @@ func (db *Database) GetListOfPlayedSongs() ([]PlayedSong, error) {
 func (db *Database) SubmitPlayedSong(song PlayedSong) error {
 	insertPlayedSongQuery := fmt.Sprintf(`
 	INSERT INTO played_songs (
-		song_name, artist_name, album_name, apple_url, spotify_url, youtube_url, album_art_url
+		song_name, artist_name, album_name, apple_url, spotify_url, youtube_url
 	) VALUES (
-		"%s", "%s", "%s", "%s", "%s", "%s", "%s"
-	)`, song.Title, song.Artist, song.Album, song.AppleUrl, song.SpotifyUrl, song.YouTubeUrl, song.AlbumArtUrl)
+		"%s", "%s", "%s", "%s", "%s", "%s"
+	)`, song.Title, song.Artist, song.Album, song.AppleUrl, song.SpotifyUrl, song.YouTubeUrl)
 
 	_, err := db.db.Exec(insertPlayedSongQuery)
 	if err != nil {

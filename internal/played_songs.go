@@ -8,5 +8,4 @@ type PlayedSong struct {
 	AppleUrl   string `json:"apple_url"`
 	SpotifyUrl string `json:"spotify_url"`
 	YouTubeUrl string `json:"youtube_url"`
-	AlbumArtUrl string `json:"album_art_url"`
 }

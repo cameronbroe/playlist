@@ -13,11 +13,10 @@ import (
 type SongDecorator struct{}
 
 type itunesResult struct {
-	ArtistName  string `json:"artistName"`
-	AlbumName   string `json:"collectionName"`
-	TrackName   string `json:"trackName"`
-	TrackUrl    string `json:"trackViewUrl"`
-	AlbumArtUrl string `json:"artworkUrl100"`
+	ArtistName string `json:"artistName"`
+	AlbumName  string `json:"collectionName"`
+	TrackName  string `json:"trackName"`
+	TrackUrl   string `json:"trackViewUrl"`
 }
 
 type itunesResponse struct {
@@ -62,7 +61,7 @@ type odesliResult struct {
 
 		YouTube struct {
 			Url string `json:"url"`
-		} `json:"youtube"`
+		} `json:"youtubeMusic"`
 	} `json:"linksByPlatform"`
 }
 
@@ -90,7 +89,6 @@ func (sd *SongDecorator) DecoratePlayedSong(song *PlayedSong) {
 	}
 
 	song.AppleUrl = itunesResult.TrackUrl
-	song.AlbumArtUrl = itunesResult.AlbumArtUrl
 
 	odesliResult, err := searchOdesli(song)
 	if err != nil {
