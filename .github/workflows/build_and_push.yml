@@ -60,9 +60,8 @@ jobs:
         working-directory: ./frontend
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
-        working-directory: ./frontend
         with:
-          path: ./build
+          path: ./frontend/build
 
   # Deployment job
   deploy:
@@ -74,5 +73,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        working-directory: ./frontend
         uses: actions/deploy-pages@v1
