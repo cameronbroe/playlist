@@ -54,10 +54,13 @@ jobs:
         uses: actions/configure-pages@v2
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+        working-directory: ./frontend
       - name: Build with CRA
         run: ${{ steps.detect-package-manager.outputs.runner }} build
+        working-directory: ./frontend
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
+        working-directory: ./frontend
         with:
           path: ./build
 
@@ -71,4 +74,5 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
+        working-directory: ./frontend
         uses: actions/deploy-pages@v1
