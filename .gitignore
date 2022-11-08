@@ -18,3 +18,7 @@
 build/
 database.db
 database.sqlite
+
+frontend/build/*
+frontend/node_modules/*
+frontend/.env*

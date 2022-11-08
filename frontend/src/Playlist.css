@@ -1,0 +1,73 @@
+.playlist-container {
+  max-width: 768px;
+  margin: 0 auto;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  padding: 10px;
+}
+
+.playlist-item {
+  display: flex;
+  max-height: 75px;
+  justify-content: space-between;
+  padding: 10px 0px;
+  border-top: 1px solid #93a1a1;
+}
+
+.playlist-item:first-child {
+  border-top: none;
+}
+
+.playlist-item-details {
+  flex-grow: 4;
+  flex-basis: auto;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+  padding-left: 5px;
+}
+
+.title {
+  font-size: 0.9em;
+  font-weight: 600;
+  color: #d33682;
+}
+
+.artist {
+  font-size: 0.6em;
+}
+
+.album {
+  font-size: 0.6em;
+}
+
+.art {
+  flex-basis: 75px;
+}
+
+.art img {
+  display: block;
+  max-height: 75px;
+}
+
+.playlist-item-links {
+  display: flex;
+}
+
+.playlist-item-links a,
+.playlist-item-links a:visited {
+  color: #657b83;
+}
+
+.playlist-item-links a:hover {
+  color: #d33682;
+}
+
+.playlist-item-links div {
+  font-size: 1.5em;
+  align-self: center;
+  padding: 10px;
+}
