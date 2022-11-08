@@ -62,7 +62,7 @@ type odesliResult struct {
 
 		YouTube struct {
 			Url string `json:"url"`
-		} `json:"youtubeMusic"`
+		} `json:"youtube"`
 	} `json:"linksByPlatform"`
 }
 
