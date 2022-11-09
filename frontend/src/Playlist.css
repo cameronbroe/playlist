@@ -34,14 +34,17 @@
   font-size: 0.9em;
   font-weight: 600;
   color: #d33682;
+  text-overflow: fade;
 }
 
 .artist {
   font-size: 0.6em;
+  text-overflow: fade;
 }
 
 .album {
   font-size: 0.6em;
+  text-overflow: fade;
 }
 
 .art {
@@ -70,4 +73,15 @@
   font-size: 1.5em;
   align-self: center;
   padding: 10px;
+}
+
+@media screen and (min-width: 469px) {
+  .title {
+    font-size: 1.3em;
+  }
+
+  .artist,
+  .album {
+    font-size: 0.8em;
+  }
 }
