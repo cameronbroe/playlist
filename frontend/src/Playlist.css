@@ -1,12 +1,10 @@
 .playlist-container {
   max-width: 768px;
   margin: 0 auto;
-  margin-top: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: center;
-  padding: 10px;
 }
 
 .playlist-item {

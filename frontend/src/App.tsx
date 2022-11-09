@@ -7,10 +7,20 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <div className="app">
-      <header>playlist.cameronbroe.com</header>
+      <header>
+        <nav>
+          <span><a href="https://cameronbroe.com">[ my homepage ]</a></span>
+          <span><a href="https://github.com/cameronbroe/playlist">[ github ]</a></span>
+        </nav>
+        <div>playlist.cameronbroe.com</div>
+      </header>
       <QueryClientProvider client={queryClient}>
         <Playlist />
       </QueryClientProvider>
+      <footer>
+        <div>Made with 💙 in Memphis, TN</div>
+        <div>Color scheme based on <a href="https://ethanschoonover.com/solarized/">solarized</a></div>
+      </footer>
     </div>
   );
 }

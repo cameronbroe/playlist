@@ -1,11 +1,35 @@
 .app {
   max-width: 1000px;
   margin: 0 auto;
-  padding-top: 20px;
 }
 
 .app header {
+  margin-bottom: 10px;
   text-align: center;
   font-size: 1.3em;
   color: #d33682;
+}
+
+.app footer {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 0.8em;
+  margin-bottom: 50px;
+}
+
+nav {
+  margin-bottom: 10px;
+}
+
+nav a {
+  font-size: 0.6em;
+  padding: 0 5px;
+}
+
+a, a:visited {
+  color: #6c71c4;
+}
+
+a:hover, a:focus {
+  filter: brightness(80%);
 }
