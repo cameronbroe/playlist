@@ -52,7 +52,7 @@ func (db *Database) EnsureDatabaseExists() error {
 }
 
 func (db *Database) GetListOfPlayedSongs() ([]PlayedSong, error) {
-	playedSongsQuery := `SELECT * FROM played_songs;`
+	playedSongsQuery := `SELECT * FROM played_songs ORDER BY id DESC;`
 
 	rows, err := db.db.Query(playedSongsQuery)
 	log.Printf("got rows: %+v\n", rows)
