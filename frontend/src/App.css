@@ -1,6 +1,8 @@
 .app {
   max-width: 1000px;
   margin: 0 auto;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .app header {
@@ -26,10 +28,18 @@ nav a {
   padding: 0 5px;
 }
 
-a, a:visited {
+a,
+a:visited {
   color: #6c71c4;
 }
 
-a:hover, a:focus {
+a:hover,
+a:focus {
   filter: brightness(80%);
+}
+
+@media screen and (min-width: 469px) {
+  .app {
+    padding: 0;
+  }
 }
