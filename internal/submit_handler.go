@@ -9,6 +9,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func validateSong(song *PlayedSong) bool {
+	return !(len(song.Artist) == 0 || len(song.Album) == 0 || len(song.Title) == 0)
+}
+
 func NewSubmitHandler(db *Database, decorator *SongDecorator) func(ctx *gin.Context) {
 	staticApiSecret := os.Getenv("API_SECRET")
 
@@ -23,9 +27,16 @@ func NewSubmitHandler(db *Database, decorator *SongDecorator) func(ctx *gin.Cont
 			}
 		}
 
-		log.Println("submitting a new song to the database")
+		log.Println("validating submitted song")
 		var newSong PlayedSong
 		ctx.BindJSON(&newSong)
+		if !validateSong(&newSong) {
+			ctx.JSON(http.StatusBadRequest, map[string]string{
+				"error": "song is not valid, so ignoring saving to database",
+			})
+			return
+		}
+		
 		log.Println("decorating song with streaming service links")
 		decorator.DecoratePlayedSong(&newSong)
 		log.Printf("saving new song to database: %+v\n", newSong)
