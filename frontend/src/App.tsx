@@ -20,6 +20,7 @@ function App() {
       <footer>
         <div>Made with 💙 in Memphis, TN</div>
         <div>Color scheme based on <a href="https://ethanschoonover.com/solarized/">solarized</a></div>
+        <div>Streaming service data filled in from <a href="https://odesli.co">Odesli</a></div>
       </footer>
     </div>
   );
