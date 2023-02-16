@@ -68,12 +68,12 @@ func (db *Database) GetListOfPlayedSongs() ([]PlayedSong, error) {
 		log.Println("foo")
 		playedSong := new(PlayedSong)
 		err := rows.Scan(
-			&playedSong.Id, 
-			&playedSong.Title, 
-			&playedSong.Artist, 
+			&playedSong.Id,
+			&playedSong.Title,
+			&playedSong.Artist,
 			&playedSong.Album,
-			&playedSong.AppleUrl, 
-			&playedSong.SpotifyUrl, 
+			&playedSong.AppleUrl,
+			&playedSong.SpotifyUrl,
 			&playedSong.YouTubeUrl,
 			&playedSong.AlbumArtUrl,
 		)
@@ -98,6 +98,17 @@ func (db *Database) SubmitPlayedSong(song PlayedSong) error {
 	if err != nil {
 		return err
 	}
-	
+
+	return nil
+}
+
+func (db *Database) ResetPlaylist() error {
+	resetQuery := "DELETE FROM played_songs"
+
+	_, err := db.db.Exec(resetQuery)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }

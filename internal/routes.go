@@ -7,4 +7,5 @@ import (
 func InstallRoutes(engine *gin.Engine, db *Database, decorator *SongDecorator) {
 	engine.GET("/list", NewListHandler(db))
 	engine.POST("/submit", NewSubmitHandler(db, decorator))
+	engine.DELETE("/reset", NewResetHandler(db))
 }

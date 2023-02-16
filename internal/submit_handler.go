@@ -36,7 +36,7 @@ func NewSubmitHandler(db *Database, decorator *SongDecorator) func(ctx *gin.Cont
 			})
 			return
 		}
-		
+
 		log.Println("decorating song with streaming service links")
 		decorator.DecoratePlayedSong(&newSong)
 		log.Printf("saving new song to database: %+v\n", newSong)
